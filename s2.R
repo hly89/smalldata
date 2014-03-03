@@ -23,3 +23,13 @@ for(t in 1:length(g)){
   #slda[[t]]<-LDA(dtm[g[[t]],], k=30, method="Gibbs", control=list(seed=as.integer(Sys.time()), burnin=2000, thin=100, iter=2000));
   slda_s2[[t]]<-LDA(s2_training[group_s2[[t]],], k=k, method="Gibbs", control=list(seed=seed, burnin=2000, thin=100, iter=2000));
 }
+
+per_sldas2<-vector("numeric",length(g))
+for(per_i in 1:length(g)){
+  per_sldas2[per_i]<-perplexity(slda_s2[[per_i]],s2_test[group_s2[[per_i]],])
+}
+
+per_ldas2<-vector("numeric",length(g))
+for(per_i in 1:length(g)){
+  per_ldas2[per_i]<-perplexity(gibbs_s2,s2_test[group_s2[[per_i]],])
+}
